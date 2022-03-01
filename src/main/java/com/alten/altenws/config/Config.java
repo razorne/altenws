@@ -7,14 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
- * This class is the spring config class, as it is declared in the web.xml
  *
  * @author aconti
  */
 @Configuration
-//enables support for @Controller-annotated classes that use @RequestMapping to map incoming requests to a certain method
 @EnableWebMvc
-//the packages to be scanned to process annotations
 @ComponentScan(basePackages = {"com.alten.altenws.controller", "com.alten.jwtsecurity"})
 public class Config {
     @Bean

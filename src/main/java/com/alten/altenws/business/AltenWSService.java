@@ -31,6 +31,12 @@ import org.hibernate.Transaction;
  */
 public class AltenWSService {
 
+    /**
+     *
+     * @param from check-in date
+     * @param to check-out date
+     * @return true if the room is available, false is the room is not available
+     */
     public boolean doCheckAvailability(Date from, Date to) {
         GenericDAO<ReservationId, Reservation> reservationDao = getReservationDao();
         List<Date> dateRange = getDateRange(from, to, 3);
@@ -51,6 +57,12 @@ public class AltenWSService {
         return reservationList.isEmpty();
     }
 
+    /**
+     *
+     * @param from check-in date
+     * @param to check-out date
+     * @return the code of the reservation that has been placed
+     */
     public String doPlaceReservation(Date from, Date to) {
         GenericDAO<ReservationId, Reservation> reservationDao = getReservationDao();
         List<Date> dateRange = getDateRange(from, to, 3);
@@ -76,6 +88,10 @@ public class AltenWSService {
         return code;
     }
 
+    /**
+     *
+     * @param code the code of the reservation that has to be cancelled
+     */
     public void doCancelReservation(String code) {
         GenericDAO<ReservationId, Reservation> reservationDao = getReservationDao();
         Session s = reservationDao.openSession();
@@ -104,6 +120,20 @@ public class AltenWSService {
         }
     }
 
+    /**
+     *
+     * @param from check-in date
+     * @param to check-out date
+     * @return a list containing a date object of from and to strings
+     * @throws UsernameCannotBeBlankException
+     * @throws ToDateBestBeBeforeFromDateException
+     * @throws ParseException
+     * @throws ReservationStartsTomorrowException
+     * @throws StayCannotBeLongerThan3DaysException
+     * @throws ReservationIsTooAheadInTimeException
+     * @throws FromDateAndToDateCannotBeEqualException
+     * @throws DateCannotBePastException
+     */
     public List<Date> validateFromToDate(String from, String to) throws UsernameCannotBeBlankException, ToDateBestBeBeforeFromDateException, ParseException, ReservationStartsTomorrowException, StayCannotBeLongerThan3DaysException, ReservationIsTooAheadInTimeException, FromDateAndToDateCannotBeEqualException, DateCannotBePastException {
         if (StringUtils.isBlank(from) || StringUtils.isBlank(to)) {
             throw new IllegalArgumentException("FROM date and TO date cannot be blank");
@@ -144,6 +174,12 @@ public class AltenWSService {
         return output;
     }
 
+    /**
+     *
+     * @param dateRangeSize
+     * @return the HQL statement that takes into account how many days are
+     * included in the stay
+     */
     protected String getCheckAvailabilityHQL(int dateRangeSize) {
         if (dateRangeSize < 1) {
             throw new IllegalArgumentException("dateRangeSize must be greater than 0");
@@ -155,6 +191,16 @@ public class AltenWSService {
         return chop(chop(chop(output.toString())));
     }
 
+    /**
+     *
+     * @param from check-in date
+     * @param to check-out date
+     * @param maxDays the maximum number of days the room can be booked per
+     * stay. By specification, this number is fixed to 3, i put it as an
+     * argument for future refactoring of the code.
+     * @return a list containing all the dates object between check-in (included) to
+     * check-out (excluded)
+     */
     protected List<Date> getDateRange(Date from, Date to, int maxDays) {
         List<Date> output = getNewDateArrayList();
         output.add(from);
@@ -190,7 +236,7 @@ public class AltenWSService {
     }
 
     protected SimpleDateFormat getSimpleDateFormat() {
-        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         simpleDateFormat.setLenient(false);
         return simpleDateFormat;
     }

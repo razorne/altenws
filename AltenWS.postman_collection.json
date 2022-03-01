@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "c5338d81-ffb0-4682-87b1-5288fb04fa0b",
+		"name": "AltenWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "check",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "from",
+						"value": "20220323",
+						"type": "text"
+					},
+					{
+						"key": "to",
+						"value": "20220324",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/AltenWS/api/check/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AltenWS",
+						"api",
+						"check",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reserve",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "from",
+						"value": "20220323",
+						"type": "text"
+					},
+					{
+						"key": "to",
+						"value": "20220324",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "test_user",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/AltenWS/api/reserve/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AltenWS",
+						"api",
+						"reserve",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "code",
+						"value": "OW4KA3NLTQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/AltenWS/api/cancel/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AltenWS",
+						"api",
+						"cancel",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
